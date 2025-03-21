@@ -1,0 +1,20 @@
+/resaHotelCalifornia/
+  /config/
+    db_connect.php
+  /assets/
+  /chambres/
+    listChambres.php
+    createChambre.php
+    editChambre.php
+    deleteChambre.php
+  /clients/
+    listClients.php
+    createClient.php
+    editClient.php
+    deleteClient.php
+  /reservations/
+    listReservations.php
+    createReservation.php
+    editReservation.php
+    deleteReservation.php
+  index.php
