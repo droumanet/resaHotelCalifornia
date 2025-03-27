@@ -11,16 +11,17 @@ closeDatabaseConnection($conn);
 <html lang="fr">
 <head>
     <title>Liste des Chambres</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
     <h1>Liste des Chambres</h1>
-    <a href="createChambre.php">Ajouter une chambre</a>
-    <table border="1">
+    <a href="createChambre.php" class="btn btn-primary">Ajouter une chambre</a>
+    <table class="table table-primary table-striped">
         <tr>
-            <th>ID</th>
-            <th>Numéro</th>
-            <th>Capacité</th>
-            <th>Actions</th>
+            <th scope="col">ID</th>
+            <th scope="col">Numéro</th>
+            <th scope="col">Capacité</th>
+            <th scope="col">Actions</th>
         </tr>
         <?php foreach($chambres as $chambre): ?>
         <tr>
@@ -28,14 +29,16 @@ closeDatabaseConnection($conn);
             <td><?= $chambre['numero'] ?></td>
             <td><?= $chambre['capacite'] ?></td>
             <td>
-                <a href="edit.php?id=<?= $chambre['id'] ?>">Modifier</a>
-                <a href="delete.php?id=<?= $chambre['id'] ?>" 
-                    onclick="return confirm('Êtes-vous sûr?')">Supprimer
+                <a href="editChambre.php?id=<?= $chambre['id'] ?>">Modifier</a>
+                <a href="deleteChambre.php?id=<?= $chambre['id'] ?>" 
+                    onclick="return confirm('sûr?')">Supprimer
                 </a>
             </td>
         </tr>
         <?php endforeach; ?>
     </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
 

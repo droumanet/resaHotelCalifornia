@@ -60,30 +60,6 @@ closeDatabaseConnection($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/style.css">
-    <style>
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .error-message {
-            color: #e74c3c;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f9e7e7;
-            border-left: 4px solid #e74c3c;
-        }
-    </style>
 </head>
 <body>
     <div class="navbar">
