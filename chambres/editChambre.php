@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$numero, $capacite, $id]);
         
         // Rediriger vers la liste des chambres
-        header("Location: listChambres.php?success=1");
+        $encodedMessage = urlencode("SUCCES : édition effectuée.");
+        header("Location: listChambres.php?message=$encodedMessage");
         exit;
     }
 } else {
@@ -45,7 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Si la chambre n'existe pas, rediriger
     if (!$chambre) {
-        header("Location: listChambres.php");
+        $encodedMessage = urlencode("ERREUR : la chambre n'existe pas");
+        header("Location: listChambres.php?message=$encodedMessage");
         exit;
     }
 }

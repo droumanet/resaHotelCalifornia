@@ -32,14 +32,10 @@ closeDatabaseConnection($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Lien vers la feuille de style externe -->
     <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <div class="navbar">
-        <a href="../index.php">Accueil</a>
-        <a href="../chambres/listChambres.php">Chambres</a>
-        <a href="../clients/listClients.php">Clients</a>
-        <a href="listReservations.php">Réservations</a>
-    </div>
+<?php include '../assets/navbar.php'; ?>
 
     <div class="container">
         <h1>Liste des Réservations</h1>
@@ -95,13 +91,13 @@ closeDatabaseConnection($conn);
                             <td class="<?= $statut_class ?>"><?= $statut ?></td>
                             <td>
                                 <a href="viewReservation.php?id=<?= $reservation['id'] ?>" 
-                                   class="btn btn-info">Voir</a>
+                                   class="btn btn-primary">👁️</a>
                                 <a href="editReservation.php?id=<?= $reservation['id'] ?>" 
-                                   class="btn btn-primary">Modifier</a>
+                                   class="btn btn-primary">✏️</a>
                                 <a href="deleteReservation.php?id=<?= $reservation['id'] ?>" 
-                                   class="btn btn-danger" 
+                                   class="btn btn-info" 
                                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation?');">
-                                    Supprimer
+                                   🗑️
                                 </a>
                             </td>
                         </tr>
@@ -114,6 +110,7 @@ closeDatabaseConnection($conn);
             </tbody>
         </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
 
