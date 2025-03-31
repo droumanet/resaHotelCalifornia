@@ -33,9 +33,10 @@ closeDatabaseConnection($conn);
     <!-- Lien vers la feuille de style externe -->
     <link rel="stylesheet" href="../assets/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<?php include '../assets/navbar.php'; ?>
+    <?php include '../assets/navbar.php'; ?>
 
     <div class="container">
         <h1>Liste des Réservations</h1>
@@ -90,15 +91,9 @@ closeDatabaseConnection($conn);
                             <td><?= formatDate($reservation['date_depart']) ?></td>
                             <td class="<?= $statut_class ?>"><?= $statut ?></td>
                             <td>
-                                <a href="viewReservation.php?id=<?= $reservation['id'] ?>" 
-                                   class="btn btn-primary">👁️</a>
-                                <a href="editReservation.php?id=<?= $reservation['id'] ?>" 
-                                   class="btn btn-primary">✏️</a>
-                                <a href="deleteReservation.php?id=<?= $reservation['id'] ?>" 
-                                   class="btn btn-info" 
-                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation?');">
-                                   🗑️
-                                </a>
+                                <a href="viewReservation.php?id=<?= $reservation['id'] ?>"><i class="fas fa-eye"></i></a>
+                                <a href="editReservation.php?id=<?= $reservation['id'] ?>"><i class="fas fa-pen"></i></a>
+                                <a href="deleteReservation.php?id=<?= $reservation['id'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation?');"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
