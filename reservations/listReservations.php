@@ -36,6 +36,7 @@ closeDatabaseConnection($conn);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <?php include_once '../assets/gestionMessage.php'; ?>
     <?php include '../assets/navbar.php'; ?>
 
     <div class="container">

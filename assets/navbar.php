@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/resaHotelCalifornia/reservations/listReservations.php"><i class="fas fa-table"></i>Réservations</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/resaHotelCalifornia/auth/login.php"><i class="fas fa-user-lock"></i>Identification</a>
+                </li>
             </ul>
         </div>
     </div>
