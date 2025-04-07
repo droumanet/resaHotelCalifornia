@@ -1,6 +1,5 @@
-//TODO vérifier le renommage qui n'entraine pas de regression...
-
 <?php
+
 // Initialiser la session
 function initSession() {
     if (session_status() == PHP_SESSION_NONE) {
@@ -49,7 +48,7 @@ function hasRole($required_role) {
     
     // Déterminer le niveau de l'employé
     $user_level = isset($role_levels[$user_role]) ? $role_levels[$user_role] : 10;
-    
+    error_log("Check role : user=".$user_level." required=".$required_level);
     // L'utilisateur a accès si son niveau est inférieur ou égal au niveau requis
     // (plus le niveau est bas, plus les droits sont élevés)
     return $user_level <= $required_level;

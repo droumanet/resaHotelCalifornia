@@ -16,16 +16,30 @@
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        if ($username=='') {
-            logoutUser();
-            $encodedMessage = urlencode("SUCCES : Vous êtes désormais déconnecté");
-            header("Location: /resaHotelCalifornia/index.php?message=$encodedMessage");
-            exit;
-        }
         $conn = openDatabaseConnection();
            
         if (authenticateUser($username, $password, $conn)) {
-            $encodedMessage = urlencode("SUCCES : Bienvenu $username");
+            // Vérifier si le rôle est déjà défini dans la session
+            error_log("ROLE ".$_SESSION['role']);
+            if (!isset($_SESSION['role'])) {
+                // Récupérer le rôle de l'utilisateur depuis la base de données
+                $conn = openDatabaseConnection();
+                $query = "SELECT role FROM employes WHERE username = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->execute([$username]);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                error_log("Result = ".$result);
+                if ($result) {
+                    // Ajouter le rôle à la session
+                    $_SESSION['role'] = $result['role'];
+                    //FIXME Role qui ne s'enregistre pas semble que $result ne contienne rien
+                    error_log("Role enregistré : ".$result['role']);
+                } else {
+                    // Si aucun rôle n'est trouvé, définir un rôle par défaut
+                    $_SESSION['role'] = 'guest'; // Exemple : rôle par défaut
+                }
+            }
+            $encodedMessage = urlencode("SUCCES : Bienvenue $username");
             header("Location: /resaHotelCalifornia/index.php?message=$encodedMessage");
             exit;
         } else {
