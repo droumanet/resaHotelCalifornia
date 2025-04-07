@@ -4,8 +4,9 @@
 
     $error = '';
 
+  
     // Si déjà connecté, rediriger vers l'accueil
-    if (is_logged_in()) {
+    if (isLoggedIn()) {
         header("Location: /resaHotelCalifornia/index.php");
         exit;
     }
@@ -14,6 +15,13 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
+
+        if ($username=='') {
+            logoutUser();
+            $encodedMessage = urlencode("SUCCES : Vous êtes désormais déconnecté");
+            header("Location: /resaHotelCalifornia/index.php?message=$encodedMessage");
+            exit;
+        }
         $conn = openDatabaseConnection();
            
         if (authenticateUser($username, $password, $conn)) {
@@ -43,7 +51,7 @@
         
         <form method="post" action="">
             <div class="form-group">
-                <label for="username">Nom d'utilisateur:</label>
+                <label for="username">Identifiant employé:</label>
                 <input type="text" name="username" id="username" required>
             </div>
             

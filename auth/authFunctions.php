@@ -1,14 +1,16 @@
+//TODO vérifier le renommage qui n'entraine pas de regression...
+
 <?php
 // Initialiser la session
-function init_session() {
+function initSession() {
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
 }
 
-// Vérifier si l'utilisateur est connecté
-function is_logged_in() {
-    init_session();
+// Vérifier si l'employé est connecté
+function isLoggedIn() {
+    initSession();
     return isset($_SESSION['user_id']);
 }
 
@@ -17,11 +19,11 @@ function is_logged_in() {
  * rôle allant de 1 (admin) à 10 (aucun droit)
  * Renvoie True si rôle >= rôle attendu
  */
-function has_role($required_role) {
-    init_session();
+function hasRole($required_role) {
+    initSession();
     
-    // Si l'utilisateur n'est pas connecté, aucun accès
-    if (!is_logged_in()) return false;
+    // Si l'employé n'est pas connecté, aucun accès
+    if (!isLoggedIn()) return false;
     
     // Table de correspondance des rôles et de leurs niveaux d'accès
     $role_levels = [
@@ -71,7 +73,7 @@ function authenticateUser($username, $password, $conn) {
         if ($user) {
             // Vérifier le mot de passe (hash sha-256) avec la valeur dans la base
             if (hash('sha256', $password) === $user['password']) {
-                init_session();
+                initSession();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
@@ -95,8 +97,8 @@ function authenticateUser($username, $password, $conn) {
 }
 
 // Déconnecter l'employé
-function logout_user() {
-    init_session();
+function logoutUser() {
+    initSession();
     session_destroy();
     // S'assurer de détruire également le cookie de session
     if (ini_get("session.use_cookies")) {
@@ -109,17 +111,17 @@ function logout_user() {
 }
 
 // Vérification d'accès pour les pages protégées
-function require_role($role = null) {
-    init_session();
+function requireRole($role = null) {
+    initSession();
     
     // Si l'utilisateur n'est pas connecté, rediriger vers login
-    if (!is_logged_in()) {
+    if (!isLoggedIn()) {
         header("Location: /auth/login.php");
         exit;
     }
     
     // Si un rôle est requis et que l'employe ne l'a pas, refuser l'accès
-    if ($role !== null && !has_role($role)) {
+    if ($role !== null && !hasRole($role)) {
         $encodedMessage = urlencode("ERREUR : Accès refusé.");
         header("Location: /index.php?message=$encodedMessage");
         exit;

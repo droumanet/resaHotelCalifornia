@@ -21,6 +21,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/resaHotelCalifornia/auth/login.php"><i class="fas fa-user-lock"></i>Identification</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/resaHotelCalifornia/auth/logout.php"><i class="fas fa-user-lock"></i>Quitter</a>
+                </li>
             </ul>
         </div>
     </div>
