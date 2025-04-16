@@ -1,7 +1,7 @@
 <?php
 
 // Initialiser la session
-function initSession() {
+function initialiserSession() {
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
@@ -9,17 +9,16 @@ function initSession() {
 
 // Vérifier si l'employé est connecté
 function isLoggedIn() {
-    initSession();
+    initialiserSession();
     return isset($_SESSION['user_id']);
 }
 
-/**
- * Vérifier si l'utilisateur a un niveau d'accès suffisant pour le rôle requis
- * rôle allant de 1 (admin) à 10 (aucun droit)
- * Renvoie True si rôle >= rôle attendu
+/** Vérifier si l'utilisateur a un niveau d'accès suffisant pour le rôle requis
+ *  rôle allant de 1 (admin) à 10 (aucun droit)
+ *  Renvoie True si rôle >= rôle attendu
  */
 function hasRole($required_role) {
-    initSession();
+    initialiserSession();
     
     // Si l'employé n'est pas connecté, aucun accès
     if (!isLoggedIn()) return false;
@@ -72,7 +71,7 @@ function authenticateUser($username, $password, $conn) {
         if ($user) {
             // Vérifier le mot de passe (hash sha-256) avec la valeur dans la base
             if (hash('sha256', $password) === $user['password']) {
-                initSession();
+                initialiserSession();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
@@ -96,8 +95,12 @@ function authenticateUser($username, $password, $conn) {
 }
 
 // Déconnecter l'employé
+/**
+ * Summary of logoutUser
+ * @return void
+ */
 function logoutUser() {
-    initSession();
+    initialiserSession();
     session_destroy();
     // S'assurer de détruire également le cookie de session
     if (ini_get("session.use_cookies")) {
@@ -111,18 +114,18 @@ function logoutUser() {
 
 // Vérification d'accès pour les pages protégées
 function requireRole($role = null) {
-    initSession();
+    initialiserSession();
     
     // Si l'utilisateur n'est pas connecté, rediriger vers login
     if (!isLoggedIn()) {
-        header("Location: /auth/login.php");
+        header("Location: /resaHotelCalifornia/auth/login.php");
         exit;
     }
     
     // Si un rôle est requis et que l'employe ne l'a pas, refuser l'accès
     if ($role !== null && !hasRole($role)) {
         $encodedMessage = urlencode("ERREUR : Accès refusé.");
-        header("Location: /index.php?message=$encodedMessage");
+        header("Location: /resaHotelCalifornia/index.php?message=$encodedMessage");
         exit;
     }
 }
