@@ -16,14 +16,23 @@
             $encodedMessage = urlencode("ERREUR : une ou plusieurs valeurs erronnée(s).");
             header("Location: listChambres.php?message=$encodedMessage");
         } else {
-            $conn = openDatabaseConnection();
-            $stmt = $conn->prepare("INSERT INTO chambres (numero, capacite) VALUES (?, ?)");
-            $stmt->execute([$numero, $capacite]);
-            closeDatabaseConnection($conn);
-            
-            $encodedMessage = urlencode("SUCCES : ajout effectuée.");
-            header("Location: listChambres.php?message=$encodedMessage");
-            exit;
+            try {
+                $conn = openDatabaseConnection();
+                $stmt = $conn->prepare("INSERT INTO chambres (numero, capacite) VALUES (?, ?)");
+                $stmt->execute([$numero, $capacite]);
+                closeDatabaseConnection($conn);
+                
+                $encodedMessage = urlencode("SUCCES : ajout effectuée.");
+                header("Location: listChambres.php?message=$encodedMessage");
+                exit;
+            }
+            catch (Exception $e) {
+                closeDatabaseConnection($conn);
+                $err = $e.getCode();
+                $encodedMessage = urlencode("ERREUR : Une erreur $err est survenue lors de l'ajout de la chambre.");
+                header("Location: listChambres.php?message=$encodedMessage");
+                exit;
+            }
         }
     }
 ?>
